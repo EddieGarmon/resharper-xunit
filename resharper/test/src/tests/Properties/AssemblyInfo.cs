@@ -1,51 +1,35 @@
-using System;
-using System.Diagnostics;
-using JetBrains.Application;
-using JetBrains.Threading;
 using System.Reflection;
-using System.Collections.Generic;
-using NUnit.Framework;
-using XunitContrib.Runner.ReSharper.RemoteRunner;
-using XunitContrib.Runner.ReSharper.UnitTestProvider;
+using System.Runtime.InteropServices;
 
-/// <summary>
-/// Test environment. Must be in the global namespace.
-/// </summary>
-[SetUpFixture]
-public class TestEnvironmentAssembly : ReSharperTestEnvironmentAssembly
-{
-    /// <summary>
-    /// Gets the assemblies to load into test environment.
-    /// Should include all assemblies which contain components.
-    /// </summary>
-    private static IEnumerable<Assembly> GetAssembliesToLoad()
-    {
-        // Test assembly
-        yield return Assembly.GetExecutingAssembly();
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+[assembly: AssemblyTitle("xunitcontrib.runner.resharper.tests")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("xunitcontrib.runner.resharper.tests.8.2")]
+[assembly: AssemblyCopyright("Copyright © Matt Ellis 2014")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
 
-        yield return typeof(XunitTestProvider).Assembly;
-        yield return typeof(XunitTaskRunner).Assembly;
-    }
+// Setting ComVisible to false makes the types in this assembly not visible 
+// to COM components.  If you need to access a type in this assembly from 
+// COM, set the ComVisible attribute to true on that type.
+[assembly: ComVisible(false)]
 
-    public override void SetUp()
-    {
-        var sw = Stopwatch.StartNew();
+// The following GUID is for the ID of the typelib if this project is exposed to COM
+[assembly: Guid("28713540-e7ee-4951-925c-b1605b615a8a")]
 
-        base.SetUp();
-        ReentrancyGuard.Current.Execute(
-          "LoadAssemblies",
-          () => Shell.Instance.GetComponent<AssemblyManager>().LoadAssemblies(
-            GetType().Name, GetAssembliesToLoad()));
-
-        Console.WriteLine("Startup took: {0}", sw.Elapsed);
-    }
-
-    public override void TearDown()
-    {
-        ReentrancyGuard.Current.Execute(
-          "UnloadAssemblies",
-          () => Shell.Instance.GetComponent<AssemblyManager>().UnloadAssemblies(
-            GetType().Name, GetAssembliesToLoad()));
-        base.TearDown();
-    }
-}
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Build and Revision Numbers 
+// by using the '*' as shown below:
+// [assembly: AssemblyVersion("1.0.*")]
+[assembly: AssemblyVersion("1.0.0.0")]
+[assembly: AssemblyFileVersion("1.0.0.0")]

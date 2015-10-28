@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="..\..\..\packages\JetBrains.ReSharper.SDK.Tests.8.2.1158\build\JetBrains.ReSharper.SDK.Tests.Props" Condition="Exists('..\..\..\packages\JetBrains.ReSharper.SDK.Tests.8.2.1158\build\JetBrains.ReSharper.SDK.Tests.Props')" />
   <Import Project="..\..\..\packages\JetBrains.ReSharper.SDK.8.2.1158\build\JetBrains.ReSharper.SDK.Props" Condition="Exists('..\..\..\packages\JetBrains.ReSharper.SDK.8.2.1158\build\JetBrains.ReSharper.SDK.Props')" />
   <PropertyGroup>
     <ReSharperSdkMode>Tests</ReSharperSdkMode>
-    <NuGetPackageImportStamp>8408a720</NuGetPackageImportStamp>
+    <NuGetPackageImportStamp>7bf2378a</NuGetPackageImportStamp>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -24,18 +24,21 @@
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
+    <OutputPath>bin\rs82\Debug\</OutputPath>
     <DefineConstants>JET_MODE_ASSERT;DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
     <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
+    <OutputPath>bin\rs82\Release\</OutputPath>
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -44,54 +47,83 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="xunit.abstractions, Version=2.0.0.0, Culture=neutral, PublicKeyToken=8d05b1bb7a6fdb6c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\packages\xunit.abstractions.2.0.0\lib\net35\xunit.abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="IXunitEnvironment.cs" />
-    <Compile Include="Metadata\Xunit2MetadataTest.cs" />
-    <Compile Include="EnvironmentVariables.cs" />
-    <Compile Include="Runner\When_capturing_output_from_multiple_facts.cs" />
-    <Compile Include="Source\Xunit1SourceTest.cs" />
-    <Compile Include="Source\Xunit2SourceTest.cs" />
+    <Compile Include="Abstractions\GacAssemblyResolverFactory.8.2.cs" />
+    <Compile Include="Abstractions\MetadataAssemblyInfoAdapterTest.cs" />
+    <Compile Include="Abstractions\MetadataAttributeInfoAdapterTest.cs" />
+    <Compile Include="Abstractions\MetadataMethodInfoAdapterTest.cs" />
+    <Compile Include="Abstractions\MetadataTypeInfoAdapterTest.cs" />
+    <Compile Include="AcceptanceTests\Annotations\ExternalAnnotationsProvider.cs" />
+    <Compile Include="AcceptanceTests\Annotations\ExternalAnnotationsTestBase2.cs" />
+    <Compile Include="AcceptanceTests\Annotations\XunitAnnotationsTest.cs" />
+    <Compile Include="AcceptanceTests\CompatibilityExtensions.cs" />
+    <Compile Include="AcceptanceTests\CompileCs.8.2.cs" />
+    <Compile Include="AcceptanceTests\EnvironmentVariables.cs" />
+    <Compile Include="AcceptanceTests\IXunitEnvironment.cs" />
+    <Compile Include="AcceptanceTests\Metadata\Xunit1MetadataTest.cs" />
+    <Compile Include="AcceptanceTests\Metadata\Xunit2MetadataTest.cs" />
+    <Compile Include="AcceptanceTests\Metadata\XunitMetadataTest.cs" />
+    <Compile Include="AcceptanceTests\Net46CompatibleFrameworkLocationHelper.cs" />
+    <Compile Include="AcceptanceTests\References\CSharpPropertyDataTests.cs" />
+    <Compile Include="AcceptanceTests\References\VBPropertyDataTests.cs" />
+    <Compile Include="AcceptanceTests\Runner\CustomAttributesXunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\DebugAssertDoesNotShowDialogs.cs" />
+    <Compile Include="AcceptanceTests\Runner\OrderedFactGoldTests.cs" />
+    <Compile Include="AcceptanceTests\Runner\OrderedTheoryGoldTests.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_a_fact_fails.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_a_test_method_contains_theories.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_a_theory_parameter_description_is_repeated.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_a_theory_reuses_existing_task.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_capturing_output_from_fact.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_capturing_output_from_theory.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_contains_multiple_facts.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_fixture_throws_in_constructor.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_fixture_throws_in_dispose.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_has_runwith_attribute_xunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_throws_in_constructor.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_throws_in_dispose.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_class_with_runwith_attribute_runs_again_xunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_collection_fixture_throws_in_constructor.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_collection_fixture_throws_in_dispose.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_custom_before_after_attribute_throws.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_dynamic_method_repeats_method_name_xunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_fixture_throws_in_constructor_xunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_fixture_throws_in_dispose_xunit1.cs" />
+    <Compile Include="AcceptanceTests\Runner\When_running_multiple_classes.cs" />
+    <Compile Include="AcceptanceTests\Source\Xunit1SourceTest.cs" />
+    <Compile Include="AcceptanceTests\Source\Xunit2SourceTest.cs" />
+    <Compile Include="AcceptanceTests\Source\XunitSourceTest.cs" />
+    <Compile Include="AcceptanceTests\UnitTestSessionManagerExtensions-pre9.2.cs" />
+    <Compile Include="AcceptanceTests\UnitTestTaskRunnerTestBase.8.2.cs" />
+    <Compile Include="AcceptanceTests\UnitTestTaskRunnerTestBase.cs" />
+    <Compile Include="AcceptanceTests\Xunit1TestReferencesAttribute.cs" />
+    <Compile Include="AcceptanceTests\XunitMetdataTestBase.8.2.cs" />
+    <Compile Include="AcceptanceTests\XunitMetdataTestBase.cs" />
+    <Compile Include="AcceptanceTests\XunitSourceTestBase.8.2.cs" />
+    <Compile Include="AcceptanceTests\XunitSourceTestBase.cs" />
+    <Compile Include="AcceptanceTests\XunitTaskRunnerOutputTestBase.cs" />
+    <Compile Include="AcceptanceTests\XunitTaskRunnerTestBase.8.2.cs" />
+    <Compile Include="AcceptanceTests\XunitTaskRunnerTestBase.cs" />
+    <Compile Include="AcceptanceTests\TestEnvironment.8.2.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Runner\OrderedFactGoldTests.cs" />
-    <Compile Include="Runner\OrderedTheoryGoldTests.cs" />
-    <Compile Include="Runner\When_a_fact_fails.cs" />
-    <Compile Include="Runner\When_a_test_method_contains_theories.cs" />
-    <Compile Include="Runner\When_a_theory_parameter_description_is_repeated.cs" />
-    <Compile Include="Runner\When_a_theory_reuses_existing_task.cs" />
-    <Compile Include="Runner\When_capturing_output_from_fact.cs" />
-    <Compile Include="Runner\When_capturing_output_from_theory.cs" />
-    <Compile Include="Runner\When_class_contains_multiple_facts.cs" />
-    <Compile Include="Runner\When_class_has_runwith_attribute.cs" />
-    <Compile Include="Runner\When_class_throws_in_constructor.cs" />
-    <Compile Include="Runner\When_class_throws_in_dispose.cs" />
-    <Compile Include="Runner\When_class_with_runwith_attribute_runs_again.cs" />
-    <Compile Include="Runner\When_custom_before_after_attribute_throws.cs" />
-    <Compile Include="Runner\When_fixture_throws_in_constructor_xunit1.cs" />
-    <Compile Include="Runner\When_fixture_throws_in_dispose_xunit1.cs" />
-    <Compile Include="Runner\When_running_multiple_classes.cs" />
-    <Compile Include="Source\XunitSourceTest.cs" />
-    <Compile Include="Metadata\Xunit1MetadataTest.cs" />
-    <Compile Include="Metadata\XunitMetadataTest.cs" />
-    <Compile Include="XunitMetdataTestBase.cs" />
-    <Compile Include="XunitSourceTestBase.cs" />
-    <Compile Include="XunitTaskRunnerOutputTestBase.cs" />
-    <Compile Include="UnitTestTaskRunnerTestBase.cs" />
-    <Compile Include="XunitTaskRunnerTestBase.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <None Include="packages.config" />
-    <Compile Include="Runner\CustomAttributesXunit1.cs" />
+    <None Include="packages.tests-rs82.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\src\xunitcontrib.runner.resharper.provider\xunitcontrib.runner.resharper.provider.8.2.csproj">
+    <ProjectReference Include="..\..\..\src\provider\provider-rs82.csproj">
       <Project>{0b1c7c1f-0b97-4df7-b21d-04be2c0d99e7}</Project>
-      <Name>xunitcontrib.runner.resharper.provider.8.2</Name>
+      <Name>provider-rs82</Name>
     </ProjectReference>
-    <ProjectReference Include="..\..\..\src\xunitcontrib.runner.resharper.runner\xunitcontrib.runner.resharper.runner.8.2.csproj">
+    <ProjectReference Include="..\..\..\src\runner\runner-rs82.csproj">
       <Project>{65ded109-21e4-48b6-bdc4-faa188ef621d}</Project>
-      <Name>xunitcontrib.runner.resharper.runner.8.2</Name>
+      <Name>runner-rs82</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -110,4 +142,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
+  <PropertyGroup>
+    <PostBuildEvent>copy $(ReSharperSdkBinaries)\JetBrains.Annotations.dll $(TargetDir)</PostBuildEvent>
+  </PropertyGroup>
 </Project>
